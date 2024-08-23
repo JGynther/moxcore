@@ -1,0 +1,24 @@
+{
+  "name": "mirror-mox",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "rsbuild dev",
+    "build": "rsbuild build",
+    "preview": "rsbuild preview"
+  },
+  "dependencies": {
+    "react": "^19.0.0-rc-fb9a90fa48-20240614",
+    "react-dom": "^19.0.0-rc-fb9a90fa48-20240614",
+    "react-router-dom": "^6.26.1"
+  },
+  "devDependencies": {
+    "@rsbuild/core": "1.0.0-alpha.7",
+    "@rsbuild/plugin-react": "1.0.0-alpha.7",
+    "@rsbuild/plugin-sass": "^1.0.0-alpha.9",
+    "@types/bun": "^1.1.6",
+    "@types/react": "npm:types-react@rc",
+    "@types/react-dom": "npm:types-react-dom@rc",
+    "typescript": "^5.5.4"
+  }
+}
