@@ -1,0 +1,22 @@
+# Magic
+oracle-cards-*
+*.gz
+
+# Local
+.DS_Store
+*.local
+*.log*
+
+# Dist
+node_modules
+dist/
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+.idea
+
+# Python
+__pycache__
+*.pt
+env
