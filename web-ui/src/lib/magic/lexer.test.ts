@@ -37,13 +37,14 @@ const TEST4 = "Lorem ipsum dolor sit amet\nLorem ipsum dolor sit amet";
 
 const EXPECTED4 = [{ type: TokenType.TEXT, value: TEST4 }];
 
-const TEST5 = "Flying, double strike, lifelink";
+const TEST5 = "Flying, double strike, lifelink.";
 const EXPECTED5 = [
     { type: TokenType.KEYWORD, value: "Flying" },
     { type: TokenType.TEXT, value: ", " },
     { type: TokenType.KEYWORD, value: "double strike" },
     { type: TokenType.TEXT, value: ", " },
     { type: TokenType.KEYWORD, value: "lifelink" },
+    { type: TokenType.TEXT, value: "." },
 ];
 
 test("Lexer, Base.", () => {

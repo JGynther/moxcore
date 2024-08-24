@@ -115,6 +115,7 @@ const noNeedToFlush = (character: string) => {
         case " ":
         case "\n":
         case ",":
+        case ".":
             return false;
         default:
             return true;
