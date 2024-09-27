@@ -1,6 +1,7 @@
 # Magic
 oracle-cards-*
 *.gz
+cards.json
 
 # Local
 .DS_Store
@@ -20,3 +21,6 @@ dist/
 __pycache__
 *.pt
 env
+
+# Version info
+version.json
