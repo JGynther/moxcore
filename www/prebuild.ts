@@ -1,6 +1,6 @@
 import { $ } from "bun";
 
-const rev = (await $`git rev-parse HEAD`.text()).slice(0, 6);
+const rev = (await $`git rev-parse HEAD`.text()).slice(0, 7);
 
 const version = {
     rev,
