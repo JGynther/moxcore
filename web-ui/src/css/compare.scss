@@ -1,0 +1,81 @@
+@use "base";
+
+.Compare {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+
+    background-color: base.$dark-0;
+
+    justify-content: center;
+    max-width: fit-content;
+
+    padding: 2rem;
+
+    margin: auto;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+
+    border-radius: 0.5rem;
+    @include base.border;
+}
+
+.Compare-Table {
+    padding-top: 1rem;
+
+    max-width: 40rem;
+
+    h1 {
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    i {
+        color: base.$text-60;
+    }
+
+    > div {
+        display: flex;
+        gap: 2rem;
+
+        border-bottom: 1px solid base.$border-color;
+
+        div {
+            width: 50%;
+        }
+    }
+}
+
+.stacked-card-images {
+    display: grid;
+
+    img {
+        width: 18rem;
+        height: auto;
+    }
+
+    > div {
+        margin-right: 0px;
+        grid-row: 1;
+        grid-column: 1;
+    }
+
+    > a {
+        margin: auto;
+        margin-top: 0.5rem;
+        background: base.$dark-100;
+        border-radius: 0.5rem;
+
+        @include base.border;
+        @include base.padding-y(0.25rem);
+        @include base.padding-x(1.5rem);
+        @include base.hover {
+            background-color: base.$dark-200;
+        }
+    }
+
+    :nth-child(2) {
+        margin-left: 5rem;
+        margin-top: 5rem;
+    }
+}
