@@ -1,0 +1,110 @@
+@use "base";
+
+.Card {
+    display: flex;
+    gap: 3rem;
+
+    flex-wrap: wrap;
+
+    background-color: base.$dark-0;
+
+    justify-content: center;
+    max-width: fit-content;
+
+    margin: 3rem;
+    padding: 2rem;
+
+    margin: auto;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+
+    border-radius: 0.5rem;
+    @include base.border;
+}
+
+.Card-Image {
+    img {
+        box-shadow: rgba(222, 228, 234, 0.05) 0px 0px 20px;
+        border-radius: 4.5%;
+
+        // Hard coded card size to prevent layout shift
+        width: 20rem;
+        height: 449.5px;
+
+        //background-color: base.$background-hover;
+        background-image: url("../../public/static/card-back.png");
+        background-size: contain;
+
+        .small-comparison {
+            width: 10rem;
+            height: auto;
+        }
+    }
+}
+
+.Card-Info {
+    font-size: 16px;
+    width: 25rem;
+    padding-top: 1rem;
+
+    h1 {
+        font-size: 22px;
+        font-weight: 700;
+    }
+
+    i {
+        color: base.$text-60;
+    }
+
+    a {
+        padding-top: 1rem;
+    }
+}
+
+.card-legality-table {
+    margin-top: 2rem;
+    width: 15rem;
+
+    $banned: #e49977;
+    $not-legal: #cac5c0;
+    $legal: #a3c095;
+    $restricted: #c1d7e9;
+
+    .banned {
+        background-color: #d78dd2;
+    }
+
+    .not-legal {
+        background-color: #b999ee;
+    }
+
+    .legal {
+        background-color: #9da5e9;
+    }
+
+    .restricted {
+        background-color: #8fa9f0;
+    }
+
+    > div {
+        display: flex;
+        margin-bottom: 0.5rem;
+        align-items: center;
+
+        > :first-child {
+            width: 50%;
+        }
+
+        > :nth-child(2) {
+            color: base.$dark-base;
+
+            width: 40%;
+            border-radius: 0.25rem;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 700;
+
+            @include base.padding-y(0.2rem);
+        }
+    }
+}
