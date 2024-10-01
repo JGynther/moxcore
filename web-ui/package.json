@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "rsbuild dev",
-    "build": "rsbuild build",
+    "build": "bun prebuild.ts && rsbuild build",
     "preview": "rsbuild preview"
   },
   "dependencies": {
