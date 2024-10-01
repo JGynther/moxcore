@@ -1,0 +1,56 @@
+@use "base";
+
+@use "layout";
+@use "search";
+@use "card";
+@use "mtg";
+@use "compare";
+@use "similar";
+
+// Pages
+@use "page/home";
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-size: 100%;
+    font-weight: 400;
+}
+
+body {
+    background-color: base.$dark-base;
+
+    margin: auto;
+    max-width: 85%;
+
+    color: base.$text;
+    font-family: system-ui, sans-serif;
+
+    line-height: 1.5;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid base.$border-color;
+}
+
+input {
+    all: unset;
+}
+
+a {
+    display: inline-block;
+    text-decoration: none;
+    color: base.$text;
+}
+
+/*
+// Debugging escape hatch
+// Break when broken
+* {
+  outline: 1px solid red !important;
+}
+*/
