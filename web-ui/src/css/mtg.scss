@@ -1,0 +1,20 @@
+.MTG {
+    font-size: 1em;
+
+    // Keywords are abbr elements
+    abbr {
+        cursor: pointer;
+    }
+
+    img {
+        height: 1em;
+        width: 1em;
+        margin-right: 0.1rem;
+        vertical-align: -10%; // This seems to be pretty close to actual center vs. "middle"
+    }
+
+    // Margin for first symbol
+    img:first-of-type {
+        margin-left: 0.1rem;
+    }
+}
