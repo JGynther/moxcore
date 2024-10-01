@@ -1,0 +1,65 @@
+// =========================================
+//                BASE COLORS
+// =========================================
+$dark-base: #101214;
+$dark-0: #161a1d;
+$dark-100: #1d2125;
+$dark-200: #22272b;
+$dark-250: #282e33;
+$dark-300: #2c333a;
+$dark-350: #38414a;
+$dark-400: #454f59;
+$dark-500: #596773;
+$dark-600: #738496;
+$dark-700: #8c9bab;
+$dark-800: #9fadbc;
+$dark-900: #b6c2cf;
+$dark-1000: #c7d1db;
+$dark-1100: #dee4ea;
+// =========================================
+
+// Font colors
+$text: $dark-1000;
+$text-80: $dark-800;
+$text-60: $dark-400;
+
+$border-color: $dark-300;
+$background-color: $dark-0;
+$background-hover: $dark-100;
+
+// Mixing Utils
+@mixin border($color: $border-color) {
+    border: 1px solid $color;
+}
+
+@mixin property-y($property, $value) {
+    #{$property}-top: $value;
+    #{$property}-bottom: $value;
+}
+
+@mixin property-x($property, $value) {
+    #{$property}-left: $value;
+    #{$property}-right: $value;
+}
+
+@mixin margin-y($value) {
+    @include property-y("margin", $value);
+}
+
+@mixin margin-x($value) {
+    @include property-x("margin", $value);
+}
+
+@mixin padding-y($value) {
+    @include property-y("padding", $value);
+}
+
+@mixin padding-x($value) {
+    @include property-x("padding", $value);
+}
+
+@mixin hover {
+    &:not([disabled]):hover {
+        @content;
+    }
+}
