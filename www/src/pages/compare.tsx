@@ -1,7 +1,8 @@
 import { useParams, Link } from "react-router-dom";
 
 import { MTGText, MTGOracleText } from "@components/mtg";
-import { CardImage, Similar, type Card, constructScryfallUri } from "@components/card";
+import { CardImage, type Card, constructScryfallUri } from "@components/card";
+import { Similar } from "@components/similar";
 
 import { useDatabase } from "@lib/database";
 

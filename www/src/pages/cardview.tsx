@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import { useScrollToTop } from "@lib/scroll";
 import { useDatabase } from "@lib/database";
 
-import { CardComponent as Card, Similar } from "@components/card";
+import { CardComponent as Card } from "@components/card";
+import { Similar } from "@components/similar";
 
 const CardView = () => {
     useScrollToTop();
