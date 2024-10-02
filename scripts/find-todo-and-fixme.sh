@@ -1,0 +1,1 @@
+grep -R -E "TODO|FIXME" --exclude-dir=node_modules --exclude-dir=env * 
