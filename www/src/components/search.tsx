@@ -9,8 +9,8 @@ import { MTGText } from "@components/mtg";
 type AutoCompleteResult = {
     id: number;
     name: string;
-    type_line: string;
-    mana_cost: string;
+    type: string;
+    mana: string;
 }[];
 
 type SuggestionsProps = {
@@ -25,7 +25,7 @@ const Suggestions = ({ cards, reset }: SuggestionsProps) => {
         <div className="Autocomplete">
             {top10.map((item) => (
                 <Link to={`/cards/${item.id}`} key={item.id} onClick={() => reset()}>
-                    {item.name} <MTGText>{item.mana_cost}</MTGText> — {item.type_line}
+                    {item.name} <MTGText>{item.mana}</MTGText> — {item.type}
                 </Link>
             ))}
 
@@ -42,7 +42,7 @@ const Search = () => {
         let normalized = query.trim().toLowerCase();
         if (normalized === "") return reset();
 
-        const exact = data.cards.filter((cards) => cards.name.toLowerCase() === normalized);
+        const exact = data.cards.filter((card) => card.name.toLowerCase() === normalized);
         const prefix = data.cards.filter((card) => card.name.toLowerCase().startsWith(normalized));
         const substring = data.cards.filter((card) => card.name.toLowerCase().includes(normalized));
 
@@ -55,8 +55,8 @@ const Search = () => {
                 return {
                     id: card.id,
                     name: card.name,
-                    type_line: card.type_line,
-                    mana_cost: card.mana_cost,
+                    type: card.type,
+                    mana: card.mana,
                 };
             })
         );

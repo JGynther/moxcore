@@ -4,16 +4,16 @@ import { useState, useEffect, createContext, useContext } from "react";
 type Card = {
     id: number;
     name: string;
-    scryfall_id: string;
-    type_line: string;
-    mana_cost: string;
-    color_identity: number[];
-    oracle_text: string;
-    flavor_text: string;
-    set: string;
-    collector_number: string;
-    image_fragment: string;
+    sid: string; // Scryfall ID
+    type: string;
+    mana: string;
+    oracle: string;
+    image: string;
+    formats: string;
     neighbours: number[];
+    flavor?: string;
+    power?: string;
+    toughness?: string;
 };
 
 type Cards = {
@@ -28,7 +28,7 @@ const useGetCardData = () => {
 
     useEffect(() => {
         async function loadCardData() {
-            const result = await fetch("/cards.json.gz");
+            const result = await fetch("/cards.experimental.json.gz");
             const data: Cards = await result.json();
             setData(data);
             setIsLoading(false);

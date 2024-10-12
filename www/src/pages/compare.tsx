@@ -17,15 +17,15 @@ const CompareTable = ({ parent, child }: { parent: number; child: number }) => {
     const renderFunctions: RenderFunc[] = [
         (card) => (
             <h1>
-                {card.name} <MTGText>{card.mana_cost}</MTGText>
+                {card.name} <MTGText>{card.mana}</MTGText>
             </h1>
         ),
-        (card) => <p>{card.type_line}</p>,
-        (card) => <MTGOracleText>{card.oracle_text}</MTGOracleText>,
+        (card) => <p>{card.type}</p>,
+        (card) => <MTGOracleText>{card.oracle}</MTGOracleText>,
         (card) =>
-            card.flavor_text && (
+            card.flavor && (
                 <p>
-                    <i>{card.flavor_text}</i>
+                    <i>{card.flavor}</i>
                 </p>
             ),
         (card) => {

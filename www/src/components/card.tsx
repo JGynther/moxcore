@@ -4,10 +4,9 @@ import { useDatabase, type Card } from "@lib/database";
 import { MTGText, MTGOracleText } from "@components/mtg";
 
 const constructImageUri = (baseUri: string, card: Card, size = "normal") =>
-    `${baseUri}${size}/${card.image_fragment}${card.scryfall_id}.jpg`;
+    `${baseUri}/${size}/${card.image}/${card.sid}.jpg`;
 
-const constructScryfallUri = (baseUri: string, card: Card) =>
-    `${baseUri}${card.set}/${card.collector_number}`;
+const constructScryfallUri = (baseUri: string, card: Card) => `${baseUri}/${card.sid}`;
 
 type ID = { id: number };
 
@@ -33,20 +32,20 @@ const CardText = ({ id }: ID) => {
     return (
         <div className="Card-Info">
             <h1>
-                {card.name} <MTGText>{card.mana_cost}</MTGText>
+                {card.name} <MTGText>{card.mana}</MTGText>
             </h1>
 
-            <p>{card.type_line}</p>
+            <p>{card.type}</p>
 
             <hr />
 
-            <MTGOracleText>{card.oracle_text}</MTGOracleText>
+            <MTGOracleText>{card.oracle}</MTGOracleText>
 
             <hr />
 
-            {card.flavor_text && (
+            {card.flavor && (
                 <p>
-                    <i>{card.flavor_text}</i>
+                    <i>{card.flavor}</i>
                 </p>
             )}
 
@@ -57,28 +56,32 @@ const CardText = ({ id }: ID) => {
     );
 };
 
-const FORMATS = ["Standard", "Pioneer", "Modern", "Legacy", "Pauper", "Vintage", "Commander"];
+const FORMATS = ["commander", "legacy", "modern", "pauper", "pioneer", "standard", "vintage"];
 
-const RandomLegality = () => {
-    switch (Math.floor(Math.random() * 4)) {
-        case 0:
-            return <div className="legal">Legal</div>;
-        case 1:
+const Legality = ({ index }: { index: string }) => {
+    switch (index) {
+        case "0":
             return <div className="not-legal">Not legal</div>;
-        case 2:
+        case "1":
+            return <div className="legal">Legal</div>;
+        case "2":
             return <div className="banned">Banned</div>;
-        case 3:
+        case "3":
             return <div className="restricted">Restricted</div>;
     }
 };
 
-const LegalityTable = () => {
+const LegalityTable = ({ id }: ID) => {
+    const data = useDatabase();
+    const card = data.cards[id];
+    const formats = card.formats.split("");
+
     return (
         <div className="card-legality-table">
             {FORMATS.sort().map((format, index) => (
                 <div key={index}>
-                    <div>{format}</div>
-                    <RandomLegality />
+                    <div>{format.charAt(0).toUpperCase() + format.slice(1)}</div>
+                    <Legality index={formats[index]} />
                 </div>
             ))}
         </div>
@@ -90,7 +93,7 @@ const CardComponent = ({ id }: ID) => {
         <div className="Card">
             <CardImage id={id} />
             <CardText id={id} />
-            <LegalityTable />
+            <LegalityTable id={id} />
         </div>
     );
 };

@@ -21,11 +21,11 @@ const CardPreview = ({ id, parent }: PreviewProps) => {
         >
             <div>{card.name}</div>
             <div>
-                <MTGText>{card.mana_cost}</MTGText>
+                <MTGText>{card.mana}</MTGText>
             </div>
-            <div>{card.type_line}</div>
+            <div>{card.type}</div>
             <div>
-                <MTGText short>{card.oracle_text}</MTGText>
+                <MTGText short>{card.oracle}</MTGText>
             </div>
         </Link>
     );

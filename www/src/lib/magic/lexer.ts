@@ -187,6 +187,10 @@ const lex: Lexer = (state) => {
     return lex(newState);
 };
 
-const lexer = (input: string) => lex({ input, result: [], pos: 0 });
+const lexer = (input: string) => {
+    // Undefined check. Empty string is valid.
+    if (input === undefined) throw new Error("Lexer input can't be undefined.");
+    return lex({ input, result: [], pos: 0 });
+};
 
 export { lexer, type Token, TokenType };
