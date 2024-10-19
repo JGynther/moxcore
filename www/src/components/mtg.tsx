@@ -15,7 +15,7 @@ const MTGText = ({ short = false, children }: MTGTextProps) => {
             case TokenType.KEYWORD:
                 if (short) return token.value;
                 return (
-                    <abbr key={index} title="KEYWORD">
+                    <abbr key={index} title={`KEYWORD: ${token.value.toLocaleUpperCase()}`}>
                         {token.value}
                     </abbr>
                 );
