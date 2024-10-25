@@ -1,7 +1,7 @@
 # Magic
 oracle-cards-*
 *.gz
-cards.json
+cards*.json
 
 # Local
 .DS_Store
