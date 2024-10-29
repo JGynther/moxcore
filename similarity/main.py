@@ -1,41 +1,40 @@
-import msgspec
-from cards.ann import create_ann_index
-from cards.embedding import convert_cards_to_embeddable_text, create_embeddings
-from cards.process_scryfall_dump import process_scryfall_dump
+from cards.card import Card
+from cards.search import (
+    calculate_all_neighbours_for_each,
+    cards_to_text_segments,
+    create_search_index,
+    filter_to_n_best_neighbours,
+    generate_embeddings,
+)
+from cards.utils import should_skip_card
+from msgspec import json
+from sentence_transformers import SentenceTransformer
 
-cards = process_scryfall_dump("../oracle-cards-20240927090208.json")
-text, index_map = convert_cards_to_embeddable_text(cards)
-embeddings, dimensions = create_embeddings(text, debug=True)
-ann_index = create_ann_index(embeddings, dimensions)
+with open("../oracle-cards-20240927090208.json") as file:
+    content = file.read()
+    cards_json = json.decode(content)
 
-segment_nn = [[] for _ in cards]
+cards: list[Card] = []
+current_id = 0
 
-for i in range(ann_index.get_n_items()):
-    neighbours, distances = ann_index.get_nns_by_item(i, n=20, include_distances=True)
+for card_json in cards_json:
+    if should_skip_card(card_json):
+        continue
 
-    card_id = index_map[i]
-    for neighbour, distance in zip(neighbours, distances):
-        id = index_map[neighbour]
-        if not card_id == id:
-            segment_nn[card_id].append((id, distance))
+    card = Card.from_scryfall_json(current_id, card_json)
+    cards.append(card)
+    current_id += 1
 
+model = SentenceTransformer("all-MiniLM-L6-v2", device="mps")
 
-def decending_uniques(pairs):
-    data = {}
+segments, segment_to_card_id = cards_to_text_segments(cards)
+embeddings = generate_embeddings(segments, model, debug=True)
+search_index = create_search_index(embeddings)
+all_neighbours = calculate_all_neighbours_for_each(segment_to_card_id, search_index)
+best_neighbours = filter_to_n_best_neighbours(all_neighbours, n=10)
 
-    for index, distance in pairs:
-        if index not in data or distance > data[index]:
-            data[index] = distance
-
-    return sorted(data.items(), key=lambda x: x[1], reverse=True)
-
-
-for index, card in enumerate(cards):
-    segments = segment_nn[index]
-    segments = decending_uniques(segments)
-    segments = segments[:10]  # 10 closest neighbours
-    card["neighbours"] = [pair[0] for pair in segments]
-    card["id"] = index  # FIXME: temp
+for card_id, neighbours in best_neighbours.items():
+    cards[card_id].set_neighbours(neighbours)
 
 data = {
     "scryfall_base_uri": "https://scryfall.com/card",
@@ -44,4 +43,4 @@ data = {
 }
 
 with open("cards.experimental.json", "wb") as file:
-    file.write(msgspec.json.encode(data))
+    file.write(json.encode(data))
