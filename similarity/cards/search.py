@@ -3,36 +3,43 @@ from operator import itemgetter
 from typing import Literal
 
 from annoy import AnnoyIndex
-from cards.card import Card
+from cards.card import VirtualCard
 from cards.utils import normalize_oracle_text
 from numpy import ndarray
 from sentence_transformers import SentenceTransformer
 
 CardId = int
-CardNeighbor = tuple[int, float]
+SegmentId = int
+CardNeighbor = tuple[CardId, float]
 AnnoyMetric = Literal["angular", "euclidean", "manhattan", "hamming", "dot"]
 
 
-def cards_to_text_segments(cards: list[Card]):
-    segment_to_card_id: dict[int, CardId] = {}
+def cards_to_text_segments(cards: list[VirtualCard]):
+    segment_to_card_id: dict[SegmentId, CardId] = {}
     segments: list[str] = []
     current_segment_id = 0
 
-    for card_id, card in enumerate(cards):
-        for face in card.faces:
-            for segment in normalize_oracle_text(face).split("\n"):
-                segment_to_card_id[current_segment_id] = card_id
-                segments.append(segment)
-                current_segment_id += 1
+    for card in cards:
+        normalized_text = normalize_oracle_text(card).strip()
+        text_segments = normalized_text.split("\n")
+
+        # Also add the full text if there are segments
+        if len(text_segments) > 1:
+            text_segments.append(normalized_text)
+
+        for segment in text_segments:
+            segment_to_card_id[current_segment_id] = card.id
+            segments.append(segment)
+            current_segment_id += 1
 
     return segments, segment_to_card_id
 
 
 def generate_embeddings(sentences: list[str], model: SentenceTransformer, debug=False):
-    return model.encode(sentences, show_progress_bar=debug)
+    return model.encode(sentences, normalize_embeddings=True, show_progress_bar=debug)
 
 
-def create_search_index(embeddings: ndarray, metric: AnnoyMetric = "angular"):
+def create_search_index(embeddings: ndarray, metric: AnnoyMetric = "dot"):
     dimension = embeddings[0].shape[0]
     annoy_index = AnnoyIndex(dimension, metric)
 
@@ -45,7 +52,7 @@ def create_search_index(embeddings: ndarray, metric: AnnoyMetric = "angular"):
 
 
 def calculate_all_neighbours_for_each(
-    segment_to_card_id: dict[int, CardId], annoy_index: AnnoyIndex
+    segment_to_card_id: dict[SegmentId, CardId], annoy_index: AnnoyIndex
 ):
     results: dict[CardId, list[CardNeighbor]] = defaultdict(list)
 
@@ -53,7 +60,7 @@ def calculate_all_neighbours_for_each(
         card_id = segment_to_card_id[segment_id]
 
         neighbours, distances = annoy_index.get_nns_by_item(
-            segment_id, n=10, include_distances=True
+            segment_id, n=20, include_distances=True
         )
 
         for segment_id, distance in zip(neighbours, distances):
