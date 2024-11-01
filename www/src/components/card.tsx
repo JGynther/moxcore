@@ -1,23 +1,25 @@
 import { Link } from "react-router-dom";
 
-import { useDatabase, type Card } from "@lib/database";
+import { useDatabase, type Card, createCardSlug } from "@lib/database";
 import { MTGText, MTGOracleText } from "@components/mtg";
 
-const constructImageUri = (baseUri: string, card: Card, size = "normal") =>
-    `${baseUri}/${size}/${card.image}/${card.sid}.jpg`;
+const constructImageUri = (baseUri: string, image: string, scryfall_id: string, size = "normal") =>
+    `${baseUri}/${size}/${image}/${scryfall_id}.jpg`;
 
-const constructScryfallUri = (baseUri: string, card: Card) => `${baseUri}/${card.sid}`;
+const constructScryfallUri = (baseUri: string, scryfall_id: string) => `${baseUri}/${scryfall_id}`;
 
 type ID = { id: number };
 
 const CardImage = ({ id }: ID) => {
     const data = useDatabase();
     const card = data.cards[id];
-    const uri = constructImageUri(data.scryfall_image_base_uri, card);
+    const uri = constructImageUri(data.scryfall_image_base_uri, card.image, card.scryfall_id);
+
+    const slug = createCardSlug(card);
 
     return (
         <div className="Card-Image">
-            <Link to={`/cards/${id}`}>
+            <Link to={`/cards/${slug}`}>
                 <img src={uri} loading="eager" />
             </Link>
         </div>
@@ -27,25 +29,21 @@ const CardImage = ({ id }: ID) => {
 const CardText = ({ id }: ID) => {
     const data = useDatabase();
     const card = data.cards[id];
-    const scryfallUri = constructScryfallUri(data.scryfall_base_uri, card);
+
+    const scryfallUri = constructScryfallUri(data.scryfall_base_uri, card.scryfall_id);
 
     return (
         <div className="Card-Info">
             <h1>
-                {card.name} <MTGText>{card.mana}</MTGText>
+                {card.name} <MTGText>{card.mana_cost}</MTGText>
             </h1>
-
-            <p>{card.type}</p>
-
+            <p>{card.type_line}</p>
             <hr />
-
-            <MTGOracleText>{card.oracle}</MTGOracleText>
-
+            <MTGOracleText>{card.oracle_text}</MTGOracleText>
             <hr />
-
-            {card.flavor && (
+            {card.flavor_text && (
                 <p>
-                    <i>{card.flavor}</i>
+                    <i>{card.flavor_text}</i>
                 </p>
             )}
 

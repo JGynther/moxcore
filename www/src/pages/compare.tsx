@@ -1,10 +1,10 @@
 import { useParams, Link } from "react-router-dom";
 
 import { MTGText, MTGOracleText } from "@components/mtg";
-import { CardImage, type Card, constructScryfallUri } from "@components/card";
+import { CardImage, constructScryfallUri } from "@components/card";
 import { Similar } from "@components/similar";
 
-import { useDatabase } from "@lib/database";
+import { useDatabase, type Card } from "@lib/database";
 
 const CompareTable = ({ parent, child }: { parent: number; child: number }) => {
     const data = useDatabase();
@@ -17,19 +17,19 @@ const CompareTable = ({ parent, child }: { parent: number; child: number }) => {
     const renderFunctions: RenderFunc[] = [
         (card) => (
             <h1>
-                {card.name} <MTGText>{card.mana}</MTGText>
+                {card.name} <MTGText>{card.mana_cost}</MTGText>
             </h1>
         ),
-        (card) => <p>{card.type}</p>,
-        (card) => <MTGOracleText>{card.oracle}</MTGOracleText>,
+        (card) => <p>{card.type_line}</p>,
+        (card) => <MTGOracleText>{card.oracle_text}</MTGOracleText>,
         (card) =>
-            card.flavor && (
+            card.flavor_text && (
                 <p>
-                    <i>{card.flavor}</i>
+                    <i>{card.flavor_text}</i>
                 </p>
             ),
         (card) => {
-            const scryfallUri = constructScryfallUri(data.scryfall_base_uri, card);
+            const scryfallUri = constructScryfallUri(data.scryfall_base_uri, card.scryfall_id);
             return (
                 <p>
                     <a href={scryfallUri} target="_blank" rel="noreferrer">
@@ -59,26 +59,33 @@ const CompareTable = ({ parent, child }: { parent: number; child: number }) => {
     );
 };
 
-const CompareImages = ({ parent, child }: { parent: number; child: number }) => {
+const CompareImages = ({ parent, child, url }: { parent: number; child: number; url: string }) => {
     return (
         <div className="stacked-card-images">
             <CardImage id={parent} />
             <CardImage id={child} />
-            <Link to={`/cards/${child}/${parent}`}>Swap ⇆</Link>
+            <Link to={url}>Swap ⇆</Link>
         </div>
     );
 };
 
 const Compare = () => {
+    const data = useDatabase();
     const { parent, child } = useParams();
 
-    const parentId = Number(parent);
-    const childId = Number(child);
+    if (!parent || !child) throw new Error();
+
+    const parentId = data.slugs.get(parent);
+    const childId = data.slugs.get(child);
+
+    if (!parentId || !childId) throw new Error();
+
+    const swapUrl = `/cards/${child}/${parent}`;
 
     return (
         <>
             <div className="Compare">
-                <CompareImages parent={parentId} child={childId} />
+                <CompareImages parent={parentId} child={childId} url={swapUrl} />
                 <CompareTable parent={parentId} child={childId} />
             </div>
             <Similar id={parentId} />

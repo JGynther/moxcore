@@ -1,20 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { useDatabase } from "@lib/database";
+import { useDatabase, type CardSearchArtifact } from "@lib/database";
 import { useOnClickOutside } from "@lib/outside";
 
 import { MTGText } from "@components/mtg";
 
-type AutoCompleteResult = {
-    id: number;
-    name: string;
-    type: string;
-    mana: string;
-}[];
-
 type SuggestionsProps = {
-    cards: AutoCompleteResult;
+    cards: CardSearchArtifact[];
     reset: () => void;
 };
 
@@ -24,8 +17,8 @@ const Suggestions = ({ cards, reset }: SuggestionsProps) => {
     return (
         <div className="Autocomplete">
             {top10.map((item) => (
-                <Link to={`/cards/${item.id}`} key={item.id} onClick={() => reset()}>
-                    {item.name} <MTGText>{item.mana}</MTGText> — {item.type}
+                <Link to={`/cards/${item.slug}`} key={item.slug} onClick={() => reset()}>
+                    {item.name} <MTGText>{item.mana_cost}</MTGText> — {item.type_line}
                 </Link>
             ))}
 
@@ -36,30 +29,23 @@ const Suggestions = ({ cards, reset }: SuggestionsProps) => {
 
 const Search = () => {
     const data = useDatabase();
-    const [suggestions, setSuggestions] = useState<AutoCompleteResult>([]);
+    const [suggestions, setSuggestions] = useState<CardSearchArtifact[]>([]);
 
     const autoComplete = (query: string) => {
         let normalized = query.trim().toLowerCase();
         if (normalized === "") return reset();
 
-        const exact = data.cards.filter((card) => card.name.toLowerCase() === normalized);
-        const prefix = data.cards.filter((card) => card.name.toLowerCase().startsWith(normalized));
-        const substring = data.cards.filter((card) => card.name.toLowerCase().includes(normalized));
+        const exact = data.search.filter((card) => card.name.toLowerCase() === normalized);
+        const prefix = data.search.filter((card) => card.name.toLowerCase().startsWith(normalized));
+        const substring = data.search.filter((card) =>
+            card.name.toLowerCase().includes(normalized)
+        );
 
         const matches = [...exact, ...prefix, ...substring];
         const uniques = new Set(matches);
         const filtered = Array.from(uniques);
 
-        setSuggestions(
-            filtered.map((card) => {
-                return {
-                    id: card.id,
-                    name: card.name,
-                    type: card.type,
-                    mana: card.mana,
-                };
-            })
-        );
+        setSuggestions(filtered);
     };
 
     const reset = () => setSuggestions([]);

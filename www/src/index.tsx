@@ -39,7 +39,7 @@ const router = createBrowserRouter([
                     </>
                 ),
                 children: [
-                    { path: "/cards/:id", element: <CardView /> },
+                    { path: "/cards/:slug", element: <CardView /> },
                     { path: "/cards/:parent/:child", element: <Compare /> },
                 ],
             },

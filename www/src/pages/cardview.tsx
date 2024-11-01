@@ -10,11 +10,13 @@ const CardView = () => {
     useScrollToTop();
 
     const data = useDatabase();
-    const { id } = useParams();
+    const { slug } = useParams();
 
     // FIXME: actually handle errors
-    if (!id) throw new Error();
-    const card = data.cards[Number(id)];
+    if (!slug) throw new Error();
+
+    const id = data.slugs.get(slug)!;
+    const card = data.cards[id];
 
     return (
         <>

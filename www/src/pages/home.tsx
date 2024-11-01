@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { useDatabase } from "@lib/database";
+import { useDatabase, createCardSlug } from "@lib/database";
 import Search from "@components/search";
 
 const GradientButton = ({ href, children }: { href: string } & React.PropsWithChildren) => (
@@ -11,8 +11,9 @@ const GradientButton = ({ href, children }: { href: string } & React.PropsWithCh
 
 const Home = () => {
     const data = useDatabase();
-    const randomCard = Math.floor(Math.random() * data.cards.length);
-    const randomUri = `/cards/${randomCard}`;
+    const randomCardId = Math.floor(Math.random() * data.cards.length);
+    const randomCardSlug = createCardSlug(data.cards[randomCardId]);
+    const randomUri = `/cards/${randomCardSlug}`;
     const indexedCards = data.cards.length.toLocaleString("fi-FI");
 
     return (
