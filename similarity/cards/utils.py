@@ -52,6 +52,7 @@ def normalize_oracle_text(card: CardFace):
 
     # FIXME: this should be replaced to use the parser
     oracle = re.sub(r"\([^)]+\)", "", oracle)  # Remove reminder text between ()
+    oracle = re.sub(r"\{[^}]*\}", "", oracle)  # Remove symbols?
 
     # Replace some symbols with defining text
     # FIXME: Scryfall has full english description for symbols
