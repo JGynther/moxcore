@@ -1,4 +1,4 @@
-from dataclasses import dataclass, fields
+from dataclasses import asdict, dataclass, fields
 from functools import wraps
 from typing import Optional
 
@@ -38,16 +38,12 @@ from cards.utils import extract_format_legality, extract_image_fragments  # noqa
 
 @dataclass
 class Card:
-    id: int
     scryfall_id: str
     formats: str
     faces: list[CardFace]
 
-    # Should not get set by __init__
-    neighbours: Optional[list[int]] = None
-
     @classmethod
-    def from_scryfall_json(cls, id: int, card: dict) -> "Card":
+    def from_scryfall_json(cls, card: dict) -> "Card":
         raw_faces = card.get("card_faces", [card])
         parent_image = card.get("image_uris", {}).get("normal")
 
@@ -60,7 +56,33 @@ class Card:
         scryfall_id = card["id"]
         formats = extract_format_legality(card)
 
-        return cls(id, scryfall_id, formats, faces)
+        return cls(scryfall_id, formats, faces)
 
-    def set_neighbours(self, neighbours: list[int]):
-        self.neighbours = neighbours
+
+@dataclass
+class VirtualCard:
+    """
+    Representation of a Card used for similarity search.
+    Differs from Scryfall's card objects by considering each face of a card separately.
+    """
+
+    id: int
+    scryfall_id: str
+    formats: str
+
+    name: str
+    mana_cost: str
+    oracle_text: str
+    type_line: str
+
+    image: str
+
+    flavor_text: Optional[str] = None
+    power: Optional[str] = None
+    toughness: Optional[str] = None
+
+    neighbours: Optional[list[int]] = None
+
+    @classmethod
+    def from_card(cls, id: int, card: Card, face: CardFace):
+        return cls(id, card.scryfall_id, card.formats, **asdict(face))
