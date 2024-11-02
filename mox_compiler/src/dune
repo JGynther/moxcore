@@ -1,0 +1,3 @@
+(library
+ (public_name mox_compiler)
+ (name mox_compiler))

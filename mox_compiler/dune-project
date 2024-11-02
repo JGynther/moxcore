@@ -1,0 +1,6 @@
+(lang dune 3.16)
+(generate_opam_files true)
+
+(name mox_compiler)
+(source (github JGynther/mox-compiler))
+(license APACHE-2.0 MIT)

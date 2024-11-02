@@ -24,3 +24,6 @@ env
 
 # Version info
 version.json
+
+# OCaml
+_build
