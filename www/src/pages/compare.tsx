@@ -73,12 +73,13 @@ const Compare = () => {
     const data = useDatabase();
     const { parent, child } = useParams();
 
-    if (!parent || !child) throw new Error();
+    if (!parent || !child) throw new Error("Parent or child param not provided.");
 
     const parentId = data.slugs.get(parent);
     const childId = data.slugs.get(child);
 
-    if (!parentId || !childId) throw new Error();
+    if (parentId === undefined || childId === undefined)
+        throw new Error("Card slug does not match any card ID.");
 
     const swapUrl = `/cards/${child}/${parent}`;
 
