@@ -48,11 +48,13 @@ def extract_image_fragments(image_uri: str):
 def normalize_oracle_text(card: CardFace):
     oracle = card.oracle_text
     oracle = oracle.replace(card.name, "this")
-    oracle = oracle.lower()
+    # oracle = oracle.lower()
 
     # FIXME: this should be replaced to use the parser
     oracle = re.sub(r"\([^)]+\)", "", oracle)  # Remove reminder text between ()
-    oracle = re.sub(r"\{[^}]*\}", "", oracle)  # Remove symbols?
+    oracle = oracle.replace("{", "")
+    oracle = oracle.replace("}", "")
+    # oracle = re.sub(r"\{[^}]*\}", "", oracle)  # Remove symbols?
 
     # Replace some symbols with defining text
     # FIXME: Scryfall has full english description for symbols

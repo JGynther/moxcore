@@ -81,7 +81,7 @@ class VirtualCard:
     power: Optional[str] = None
     toughness: Optional[str] = None
 
-    neighbours: Optional[list[int]] = None
+    neighbours: Optional[dict[str, list[int]]] = None
 
     @classmethod
     def from_card(cls, id: int, card: Card, face: CardFace):
