@@ -7,7 +7,7 @@ from search.rerank import batch_rerank
 NULL = "<|NULL|>"
 TOP_K = 10
 
-cards = process_scryfall_dump("../oracle-cards-20240927090208.json")
+cards = process_scryfall_dump()
 corpus = [normalize_oracle_text(card) or NULL for card in cards]
 
 results = batch_bm25_search(corpus)
