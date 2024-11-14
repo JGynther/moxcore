@@ -15,7 +15,10 @@ type Card = {
     power?: string;
     toughness?: string;
 
-    neighbours: number[];
+    neighbours: {
+        bm25: number[];
+        hybrid: number[];
+    };
 };
 
 type Cards = {
