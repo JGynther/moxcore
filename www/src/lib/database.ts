@@ -89,7 +89,7 @@ const createIndex = (cards: Card[]): [Map<string, number>, CardSearchArtifact[]]
 const Database = createContext<Cards>();
 const useDatabase = () => useContext(Database);
 
-export type { Card, Cards, CardSearchArtifact };
+export type { Card, CardSearchArtifact };
 export {
     createCardSlug,
     useGetCardData,

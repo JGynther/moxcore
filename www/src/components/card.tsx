@@ -116,5 +116,4 @@ const CardComponent = ({ id, compareTo, swap }: CardProps) => {
     );
 };
 
-export { CardComponent, CardImage, CardText, constructImageUri, constructScryfallUri };
-export type { Card };
+export { CardComponent };
