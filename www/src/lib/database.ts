@@ -39,6 +39,11 @@ type CardSearchArtifact = {
 const createCardSlug = (card: Card) =>
     card.name.toLowerCase().replaceAll(" ", "-").replaceAll(",", "").replaceAll("'", "");
 
+const constructImageUri = (baseUri: string, image: string, scryfall_id: string, size = "normal") =>
+    `${baseUri}/${size}/${image}/${scryfall_id}.jpg`;
+
+const constructScryfallUri = (baseUri: string, scryfall_id: string) => `${baseUri}/${scryfall_id}`;
+
 const useGetCardData = () => {
     const [data, setData] = useState<Cards>();
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -85,4 +90,11 @@ const Database = createContext<Cards>();
 const useDatabase = () => useContext(Database);
 
 export type { Card, Cards, CardSearchArtifact };
-export { createCardSlug, useGetCardData, Database, useDatabase };
+export {
+    createCardSlug,
+    useGetCardData,
+    Database,
+    useDatabase,
+    constructScryfallUri,
+    constructImageUri,
+};

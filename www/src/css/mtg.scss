@@ -11,6 +11,7 @@
         width: 1em;
         margin-right: 0.1rem;
         vertical-align: -10%; // This seems to be pretty close to actual center vs. "middle"
+        filter: drop-shadow(-1px 2px 0px black);
     }
 
     // Margin for first symbol

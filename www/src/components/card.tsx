@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 
-import { useDatabase, type Card, createCardSlug } from "@lib/database";
-import { MTGText, MTGOracleText } from "@components/mtg";
-
-const constructImageUri = (baseUri: string, image: string, scryfall_id: string, size = "normal") =>
-    `${baseUri}/${size}/${image}/${scryfall_id}.jpg`;
-
-const constructScryfallUri = (baseUri: string, scryfall_id: string) => `${baseUri}/${scryfall_id}`;
+import { MTGOracleText, MTGText } from "@components/mtg";
+import { Similar } from "@components/similar";
+import {
+    constructImageUri,
+    constructScryfallUri,
+    createCardSlug,
+    useDatabase,
+    type Card,
+} from "@lib/database";
 
 type ID = { id: number };
 
@@ -18,7 +20,7 @@ const CardImage = ({ id }: ID) => {
     const slug = createCardSlug(card);
 
     return (
-        <div className="Card-Image">
+        <div className="card-image">
             <Link to={`/cards/${slug}`}>
                 <img src={uri} loading="eager" />
             </Link>
@@ -33,7 +35,7 @@ const CardText = ({ id }: ID) => {
     const scryfallUri = constructScryfallUri(data.scryfall_base_uri, card.scryfall_id);
 
     return (
-        <div className="Card-Info">
+        <div className="card-info">
             <h1>
                 {card.name} <MTGText>{card.mana_cost}</MTGText>
             </h1>
@@ -46,7 +48,6 @@ const CardText = ({ id }: ID) => {
                     <i>{card.flavor_text}</i>
                 </p>
             )}
-
             <a href={scryfallUri} target="_blank" rel="noreferrer">
                 Open in Scryfall ↗
             </a>
@@ -86,15 +87,34 @@ const LegalityTable = ({ id }: ID) => {
     );
 };
 
-const CardComponent = ({ id }: ID) => {
+type CardProps =
+    | { id: number; compareTo?: undefined; swap?: undefined }
+    | { id: number; compareTo: number; swap: string };
+
+const CardComponent = ({ id, compareTo, swap }: CardProps) => {
     return (
-        <div className="Card">
-            <CardImage id={id} />
-            <CardText id={id} />
-            <LegalityTable id={id} />
+        <div className="card">
+            <div>
+                <div className="stacked-card-images-test">
+                    <CardImage id={id} />
+                    {compareTo && (
+                        <>
+                            <CardImage id={compareTo} />
+                            <Link to={swap}>Swap ⇆</Link>
+                        </>
+                    )}
+                </div>
+            </div>
+            <div>
+                <div className="card-info-box">
+                    <CardText id={id} />
+                    <LegalityTable id={id} />
+                </div>
+                <Similar id={id} />
+            </div>
         </div>
     );
 };
 
-export { CardImage, CardText, CardComponent, constructScryfallUri };
+export { CardComponent, CardImage, CardText, constructImageUri, constructScryfallUri };
 export type { Card };

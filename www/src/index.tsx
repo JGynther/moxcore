@@ -8,8 +8,7 @@ import Layout from "@components/layout";
 import Search from "@components/search";
 
 import Home from "@pages/home";
-import CardView from "@pages/cardview";
-import Compare from "@pages/compare";
+import { SingleCard, TwoCards } from "@pages/cardview";
 
 import { useGetCardData, Database } from "@lib/database";
 
@@ -39,8 +38,8 @@ const router = createBrowserRouter([
                     </>
                 ),
                 children: [
-                    { path: "/cards/:slug", element: <CardView /> },
-                    { path: "/cards/:parent/:child", element: <Compare /> },
+                    { path: "/cards/:slug", element: <SingleCard /> },
+                    { path: "/cards/:parent/:child", element: <TwoCards /> },
                 ],
             },
         ],
@@ -54,6 +53,6 @@ if (rootEl) {
     root.render(
         <React.StrictMode>
             <RouterProvider router={router} />
-        </React.StrictMode>
+        </React.StrictMode>,
     );
 }

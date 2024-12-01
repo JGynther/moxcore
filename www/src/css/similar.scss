@@ -1,41 +1,37 @@
 @use "base";
 
 .similar-cards-list {
-    > :first-child {
-        border-top: 1px solid base.$border-color;
+    margin: 1rem;
+    margin-top: 2rem;
+
+    a:nth-child(odd) {
+        background-color: base.$background-color;
     }
 
     > a {
         color: base.$text;
+        padding: 0.25rem;
+        font-size: 14px;
 
         display: flex;
         gap: 0.5rem;
-        align-items: center;
 
         > :nth-child(1) {
-            width: 15%;
+            width: 40%;
         }
 
         > :nth-child(2) {
-            width: 10%;
+            width: 15%;
         }
 
         > :nth-child(3) {
-            width: 25%;
+            width: 45%;
         }
 
-        > :nth-child(4) {
-            width: 50%;
-            opacity: 40%;
+        &:hover,
+        &.active {
+            background-color: #9da5e9;
+            color: base.$dark-base;
         }
-
-        &:hover {
-            background-color: base.$background-color;
-        }
-
-        border-bottom: 1px solid base.$border-color;
-        padding: 0.5rem;
-
-        font-size: 14px;
     }
 }

@@ -1,55 +1,51 @@
 @use "base";
 
-.Card {
+.card {
     display: flex;
-    gap: 3rem;
-
     flex-wrap: wrap;
-
-    background-color: base.$dark-0;
-
     justify-content: center;
-    max-width: fit-content;
-
-    margin: 3rem;
-    padding: 2rem;
 
     margin: auto;
-    margin-top: 3rem;
-    margin-bottom: 3rem;
-
-    border-radius: 0.5rem;
-    @include base.border;
+    margin-top: 1rem;
+    margin-bottom: 4rem;
 }
 
-.Card-Image {
+.card-image {
     img {
-        box-shadow: rgba(222, 228, 234, 0.05) 0px 0px 20px;
+        @include base.border;
         border-radius: 4.5%;
 
         // Hard coded card size to prevent layout shift
-        width: 20rem;
-        height: 449.5px;
+        width: 24rem;
+        height: 537.083px;
 
         //background-color: base.$background-hover;
         background-image: url("../../public/static/card-back.png");
         background-size: contain;
-
-        .small-comparison {
-            width: 10rem;
-            height: auto;
-        }
     }
 }
 
-.Card-Info {
+.card-info-box {
+    display: flex;
+    gap: 2rem;
+
+    padding: 2rem;
+    margin-top: 1.5rem;
+
+    background-color: base.$dark-0;
+    border: 1px solid base.$border-color;
+    border-left-width: 0px;
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.card-info {
     font-size: 16px;
-    width: 25rem;
-    padding-top: 1rem;
+    width: 20rem;
 
     h1 {
         font-size: 22px;
         font-weight: 700;
+        margin-top: 0;
     }
 
     i {
@@ -62,7 +58,6 @@
 }
 
 .card-legality-table {
-    margin-top: 2rem;
     width: 15rem;
 
     $banned: #e49977;
@@ -105,6 +100,35 @@
             font-weight: 700;
 
             @include base.padding-y(0.2rem);
+        }
+    }
+}
+
+.stacked-card-images-test {
+    display: grid;
+
+    > div {
+        grid-row: 1;
+        grid-column: 1;
+    }
+
+    :nth-child(2) {
+        margin-left: -4rem;
+        margin-right: 4rem;
+        margin-top: 8rem;
+    }
+
+    > a {
+        margin: auto;
+        margin-top: 0.5rem;
+        background: base.$dark-100;
+        border-radius: 0.5rem;
+
+        @include base.border;
+        @include base.padding-y(0.25rem);
+        @include base.padding-x(1.5rem);
+        @include base.hover {
+            background-color: base.$dark-200;
         }
     }
 }
