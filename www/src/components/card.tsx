@@ -7,7 +7,6 @@ import {
     constructScryfallUri,
     createCardSlug,
     useDatabase,
-    type Card,
 } from "@lib/database";
 
 type ID = { id: number };
