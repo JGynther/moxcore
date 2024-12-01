@@ -5,7 +5,8 @@
     "scripts": {
         "dev": "bun prebuild.ts && rsbuild dev",
         "build": "bun prebuild.ts && rsbuild build",
-        "preview": "rsbuild preview"
+        "preview": "rsbuild preview",
+        "knip": "knip"
     },
     "dependencies": {
         "react": "^19.0.0-rc-fb9a90fa48-20240614",
@@ -21,6 +22,7 @@
         "@types/react": "npm:types-react@rc",
         "@types/react-dom": "npm:types-react-dom@rc",
         "babel-plugin-react-compiler": "^19.0.0-beta-df7b47d-20241124",
+        "knip": "^5.38.3",
         "typescript": "^5.7.2"
     }
 }
