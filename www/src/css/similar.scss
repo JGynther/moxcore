@@ -2,7 +2,10 @@
 
 .similar-cards-list {
     margin: 1rem;
-    margin-top: 2rem;
+
+    @include base.border(base.$background-color);
+    border-radius: 0.5rem;
+    overflow: hidden;
 
     a:nth-child(odd) {
         background-color: base.$background-color;
@@ -10,7 +13,7 @@
 
     > a {
         color: base.$text;
-        padding: 0.25rem;
+        padding: 0.5rem;
         font-size: 14px;
 
         display: flex;
