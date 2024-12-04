@@ -52,8 +52,22 @@
         color: base.$text-60;
     }
 
-    a {
-        margin-top: 1rem;
+    > div {
+        > a {
+            font-size: 14px;
+            background: base.$dark-100;
+            border-radius: 0.5rem;
+            margin-right: 0.5rem;
+
+            @include base.border;
+            @include base.padding-y(0.25rem);
+            @include base.padding-x(1rem);
+            @include base.hover {
+                background-color: base.$dark-200;
+            }
+        }
+
+        margin-top: 1.5rem;
     }
 }
 
@@ -125,7 +139,6 @@
 
     > a {
         margin: auto;
-        margin-top: 0.5rem;
         background: base.$dark-100;
         border-radius: 0.5rem;
 

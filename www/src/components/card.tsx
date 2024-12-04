@@ -1,4 +1,4 @@
-import { useState, type HTMLAttributes } from "react";
+import { useEffect, useState, type HTMLAttributes } from "react";
 import { Link } from "react-router-dom";
 
 import { MTGOracleText, MTGText } from "@components/mtg";
@@ -37,6 +37,7 @@ const CardText = ({ id }: ID) => {
     const card = data.cards[id];
 
     const scryfallUri = constructScryfallUri(data.scryfall_base_uri, card.scryfall_id);
+    const slug = createCardSlug(card);
 
     return (
         <div className="card-info">
@@ -52,9 +53,15 @@ const CardText = ({ id }: ID) => {
                     <i>{card.flavor_text}</i>
                 </p>
             )}
-            <a href={scryfallUri} target="_blank" rel="noreferrer">
-                Open in Scryfall ↗
-            </a>
+            <div>
+                <a href={scryfallUri} target="_blank" rel="noreferrer">
+                    Scryfall ↗
+                </a>
+
+                <a href={`https://edhrec.com/cards/${slug}`} target="_blank" rel="noreferrer">
+                    EDHREC ↗
+                </a>
+            </div>
         </div>
     );
 };
@@ -97,6 +104,12 @@ type CardProps =
 
 const CardComponent = ({ id, compareTo, swap }: CardProps) => {
     const [displayedCard, setDisplayedCard] = useState(id);
+
+    // Make sure we properly display new card on all navigation
+    useEffect(() => {
+        setDisplayedCard(id);
+    }, [id]);
+
     return (
         <div className="card">
             <div>
