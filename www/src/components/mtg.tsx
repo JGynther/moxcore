@@ -1,8 +1,8 @@
 import { lexer, type Token, TokenType } from "@lib/magic/lexer";
 
-type MTGTextProps = { short?: boolean; children: string };
+type MTGTextProps = { children: string };
 
-const MTGText = ({ short = false, children }: MTGTextProps) => {
+const MTGText = ({ children }: MTGTextProps) => {
     const tokens = lexer(children).result;
 
     const renderToken = (token: Token, index: number) => {
@@ -13,7 +13,6 @@ const MTGText = ({ short = false, children }: MTGTextProps) => {
                 return token.value;
 
             case TokenType.KEYWORD:
-                if (short) return token.value;
                 return (
                     <abbr key={index} title={`KEYWORD: ${token.value.toLocaleUpperCase()}`}>
                         {token.value}
@@ -21,7 +20,6 @@ const MTGText = ({ short = false, children }: MTGTextProps) => {
                 );
 
             case TokenType.REMINDER:
-                if (short) return null;
                 return <i key={index}>({token.value})</i>;
 
             case TokenType.SYMBOL:

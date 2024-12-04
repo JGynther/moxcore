@@ -46,7 +46,7 @@ const CardText = ({ id }: ID) => {
             </h1>
             <p>{card.type_line}</p>
             <hr />
-            <MTGOracleText>{card.oracle_text}</MTGOracleText>
+            <MTGOracleText>{card.oracle_text || "(Wow, very empty.)"}</MTGOracleText>
             <hr />
             {card.flavor_text && (
                 <p>
