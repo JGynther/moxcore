@@ -1,13 +1,18 @@
 import { Link } from "react-router-dom";
 import version from "../version.json";
 
-const Header = () => {
+import Search from "@components/search";
+
+const Header = ({ hasSearch = true }) => {
     return (
         <header className="Header">
-            <Link to="/">
-                <h1>Mirror Mox</h1>
-            </Link>
-            <div className="badge">Alpha</div>
+            <div>
+                <Link to="/">
+                    <h1>Mirror Mox</h1>
+                </Link>
+                <div className="badge">Alpha</div>
+            </div>
+            {hasSearch && <Search />}
         </header>
     );
 };
@@ -35,10 +40,11 @@ const Footer = () => {
     );
 };
 
-const Layout = ({ children }: React.PropsWithChildren) => {
+type LayoutProps = { hasSearch?: boolean } & React.PropsWithChildren;
+const Layout = ({ hasSearch = false, children }: LayoutProps) => {
     return (
         <>
-            <Header />
+            <Header hasSearch={hasSearch} />
             <main>{children}</main>
             <Footer />
         </>

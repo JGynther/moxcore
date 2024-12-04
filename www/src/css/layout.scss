@@ -10,10 +10,17 @@
 }
 
 .Header {
-    @include base.margin-y(2rem);
+    margin-top: 2rem;
 
     display: flex;
-    align-items: center;
+    align-items: start;
+    gap: 2rem;
+    flex-wrap: wrap;
+
+    > div {
+        display: flex;
+        align-items: center;
+    }
 
     h1 {
         font-size: 40px;

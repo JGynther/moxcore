@@ -5,7 +5,6 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
 import Layout from "@components/layout";
-import Search from "@components/search";
 
 import Home from "@pages/home";
 import { SingleCard, TwoCards } from "@pages/cardview";
@@ -23,19 +22,23 @@ const router = createBrowserRouter([
     {
         element: (
             <Data>
-                <Layout>
-                    <Outlet />
-                </Layout>
+                <Outlet />
             </Data>
         ),
         children: [
-            { path: "/", element: <Home /> },
             {
                 element: (
-                    <>
-                        <Search />
+                    <Layout>
                         <Outlet />
-                    </>
+                    </Layout>
+                ),
+                children: [{ path: "/", element: <Home /> }],
+            },
+            {
+                element: (
+                    <Layout hasSearch>
+                        <Outlet />
+                    </Layout>
                 ),
                 children: [
                     { path: "/cards/:slug", element: <SingleCard /> },
