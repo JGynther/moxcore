@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 import { MTGText } from "@components/mtg";
 import { Card, createCardSlug, useDatabase } from "@lib/database";
@@ -43,13 +43,19 @@ const Similar = ({ id }: ID) => {
                     <CardPreview key={child_id} id={child_id} parent={slug} />
                 ))}
             </div>
-            <select
-                value={selected}
-                onChange={(event) => setSelected(event.target.value as Options)}
-            >
-                <option value="bm25">BM25</option>
-                <option value="hybrid">Hybrid</option>
-            </select>
+            <div className="select-similarity-metric">
+                <select
+                    value={selected}
+                    onChange={(event) => setSelected(event.target.value as Options)}
+                >
+                    <option value="bm25">BM25</option>
+                    <option value="hybrid">Hybrid</option>
+                </select>
+                <abbr title="You can choose between two different similarity metrics.">
+                    What is this?
+                </abbr>
+                <Link to="">Learn how card similarity works ↗</Link>
+            </div>
         </>
     );
 };
