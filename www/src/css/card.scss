@@ -116,6 +116,11 @@
         margin-left: -4rem;
         margin-right: 4rem;
         margin-top: 8rem;
+
+        > a > img:hover {
+            @include base.border(#9da5e9);
+            transition: border 0.3s ease;
+        }
     }
 
     > a {
@@ -130,5 +135,12 @@
         @include base.hover {
             background-color: base.$dark-200;
         }
+    }
+
+    > p {
+        font-size: 14px;
+        width: 24rem;
+        color: base.$text-60;
+        text-align: center;
     }
 }

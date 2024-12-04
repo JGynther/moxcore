@@ -1,3 +1,4 @@
+import { useState, type HTMLAttributes } from "react";
 import { Link } from "react-router-dom";
 
 import { MTGOracleText, MTGText } from "@components/mtg";
@@ -11,7 +12,11 @@ import {
 
 type ID = { id: number };
 
-const CardImage = ({ id }: ID) => {
+// CardImage is a generic component that _could_ be reused quite freely
+// So addding support for spreading HTMLAttributes
+type CardImageProps = Omit<HTMLAttributes<HTMLDivElement>, "id"> & { id: number };
+
+const CardImage = ({ id, ...props }: CardImageProps) => {
     const data = useDatabase();
     const card = data.cards[id];
     const uri = constructImageUri(data.scryfall_image_base_uri, card.image, card.scryfall_id);
@@ -19,7 +24,7 @@ const CardImage = ({ id }: ID) => {
     const slug = createCardSlug(card);
 
     return (
-        <div className="card-image">
+        <div className="card-image" {...props}>
             <Link to={`/cards/${slug}`}>
                 <img src={uri} loading="eager" />
             </Link>
@@ -91,6 +96,7 @@ type CardProps =
     | { id: number; compareTo: number; swap: string };
 
 const CardComponent = ({ id, compareTo, swap }: CardProps) => {
+    const [displayedCard, setDisplayedCard] = useState(id);
     return (
         <div className="card">
             <div>
@@ -98,7 +104,15 @@ const CardComponent = ({ id, compareTo, swap }: CardProps) => {
                     <CardImage id={id} />
                     {compareTo && (
                         <>
-                            <CardImage id={compareTo} />
+                            <CardImage
+                                id={compareTo}
+                                onMouseEnter={() => setDisplayedCard(compareTo)}
+                                onMouseLeave={() => setDisplayedCard(id)}
+                            />
+                            <p>
+                                You can hover the top card to see its oracle text! Or you can use
+                                the below button to switch the card order!
+                            </p>
                             <Link to={swap}>Swap ⇆</Link>
                         </>
                     )}
@@ -106,8 +120,8 @@ const CardComponent = ({ id, compareTo, swap }: CardProps) => {
             </div>
             <div>
                 <div className="card-info-box">
-                    <CardText id={id} />
-                    <LegalityTable id={id} />
+                    <CardText id={displayedCard} />
+                    <LegalityTable id={displayedCard} />
                 </div>
                 <Similar id={id} />
             </div>
