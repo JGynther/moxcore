@@ -9,8 +9,8 @@
         "knip": "knip"
     },
     "dependencies": {
-        "react": "^19.0.0-rc-fb9a90fa48-20240614",
-        "react-dom": "^19.0.0-rc-fb9a90fa48-20240614",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
         "react-router-dom": "6.27"
     },
     "devDependencies": {
@@ -19,8 +19,8 @@
         "@rsbuild/plugin-react": "1.0.3",
         "@rsbuild/plugin-sass": "^1.1.1",
         "@types/bun": "^1.1.14",
-        "@types/react": "npm:types-react@rc",
-        "@types/react-dom": "npm:types-react-dom@rc",
+        "@types/react": "npm:types-react@^19.0.0-rc.1",
+        "@types/react-dom": "npm:types-react-dom@^19.0.0-rc.1",
         "babel-plugin-react-compiler": "^19.0.0-beta-df7b47d-20241124",
         "knip": "^5.38.3",
         "typescript": "^5.7.2"
