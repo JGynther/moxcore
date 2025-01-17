@@ -4,4 +4,7 @@ version = "0.1.0"
 requires-python = ">=3.12"
 
 [tool.uv.workspace]
-members = ["similarity"]
+members = ["similarity", "mox_compiler_py"]
+
+[tool.ruff]
+line-length = 100
