@@ -5,17 +5,8 @@ type Result = T.Optional[tuple[T.Any, Rest]]
 type Parser = T.Callable[[str], Result]
 
 
-def Literal(pattern: str, case_sensitive=True) -> Parser:
+def Literal(pattern: str) -> Parser:
     length = len(pattern)
-
-    if not case_sensitive:
-        pattern_casefold = pattern.casefold()
-
-        def func(input: str):
-            if input.casefold().startswith(pattern_casefold):
-                return pattern, input[length:]
-
-        return func
 
     def func(input: str):
         if input.startswith(pattern):
