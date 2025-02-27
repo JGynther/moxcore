@@ -6,6 +6,8 @@ def normalize(input: str):
     input = re.compile(r".*\s?—\s").sub("", input)
     input = re.compile(r"\([^)]+\)").sub("", input)
     input = input.replace("this spell", "[[card]]")
+    input = input.replace("this creature", "[[card]]")
+    input = input.replace("this aura", "[[card]]")
 
     return input
 
