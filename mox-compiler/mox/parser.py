@@ -7,7 +7,7 @@ from mox.normalize import mask_name, normalize
 def parse(input: str, name: str, type: str):
     input = mask_name(input, name)
     input = normalize(input)
-    is_spell = type == "Instant" or type == "Sorcery"
+    is_spell = "Instant" in type or "Sorcery" in type
 
     abilities = []
     keywords = list(set(KEYWORDS.findall(input)))
