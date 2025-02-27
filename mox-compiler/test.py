@@ -1,4 +1,5 @@
 from mox import parse
+from mox.utils import pretty_print
 
 TEST_CARDS = [
     {
@@ -102,12 +103,4 @@ for card in TEST_CARDS:
     print("--")
 
     card = parse(card["oracle"], name=card["name"], type=card["type"])
-
-    print("KEYWORDS", card.keywords)
-
-    for ability in card.abilities:
-        print(ability.category, ability.cost or "", ability.trigger or "")
-        for effect in ability.effects:
-            print(" -- ", effect)
-
-    print("\n\n")
+    pretty_print(card, print_name=False)
