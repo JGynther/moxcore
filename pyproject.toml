@@ -1,10 +1,14 @@
 [project]
-name = "mirror-mox"
+name = "moxcore"
 version = "0.1.0"
 requires-python = ">=3.12"
+dependencies = []
 
 [tool.uv.workspace]
-members = ["similarity", "mox_compiler_py"]
+members = ["similarity", "mox-compiler"]
+
+[tool.uv.sources]
+mox-compiler = { workspace = true }
 
 [tool.ruff]
 line-length = 100
