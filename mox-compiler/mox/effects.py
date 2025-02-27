@@ -53,6 +53,9 @@ def try_to_parse_effect_type(effect: str) -> tuple[EType, Zone, Zone]:
         case _ if re.search(r"counters?\b", effect):
             etype = EType.COUNTERS
 
+        case _ if "add {" in effect:
+            etype = EType.MANA
+
     return etype, source, destination
 
 
