@@ -6,6 +6,7 @@ def pretty_print(card: Card, print_name=True):
         print(card.name)
         print("--")
 
+    print("TYPE", card.type)
     print("KEYWORDS", card.keywords)
 
     for ability in card.abilities:
