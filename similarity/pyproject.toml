@@ -11,5 +11,5 @@ dependencies = [
     "numpy>=2.1.2",
     "pystemmer>=2.2.0.3",
     "sentence-transformers>=3.2.1",
-    "torch>=2.5.0",
+    "torch>=2.6.0",
 ]
