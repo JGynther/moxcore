@@ -56,6 +56,11 @@ def try_to_parse_effect_type(effect: str) -> tuple[EType, Zone, Zone]:
         case _ if "add {" in effect:
             etype = EType.MANA
 
+        case _ if "discard" in effect:
+            etype = EType.DISCARD
+            source = Zone.HAND
+            destination = Zone.GRAVEYARD
+
     return etype, source, destination
 
 

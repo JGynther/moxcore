@@ -66,6 +66,7 @@ class EType(Enum):
     TUTOR = "tutor"
     MANA = "mana"
     LIFE_GAIN = "life_gain"
+    DISCARD = "discard"
 
     # Combat
     DAMAGE = "damage"
