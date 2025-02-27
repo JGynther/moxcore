@@ -14,12 +14,25 @@ def parse_ability(input: str, is_spell: bool) -> Ability:
             category = Category.TRIGGERED
             trigger, input = input.split(",", 1)
 
-        case _ if ":" in input:
+        case _ if is_activated_ability(input):
             category = Category.ACTIVATED
-            cost, input = input.split(":")
+            cost, input = input.split(":", 1)
 
         case _:
             if is_spell:
                 category = Category.SPELL
 
     return Ability(category, parse_effects(input), cost, trigger)
+
+
+def is_activated_ability(input: str) -> bool:
+    currently_inside_quotes = False
+
+    for char in input:
+        match char:
+            case '"':
+                currently_inside_quotes = not currently_inside_quotes
+            case ":" if not currently_inside_quotes:
+                return True
+
+    return False
