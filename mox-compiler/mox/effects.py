@@ -63,12 +63,12 @@ def try_to_parse_effect_type(effect: str) -> tuple[EType, Zone, Zone]:
             destination = Zone.GRAVEYARD
 
         case _ if re.search(r"\bput\b", effect):
-            source = Zone.HAND
-
             if "put a creature" in effect:
+                source = Zone.HAND
                 etype = EType.PUT_CREATURE
 
             if "put a land" in effect:
+                source = Zone.HAND
                 etype = EType.PUT_LAND
 
         case _ if "graveyard to the battlefield" in effect:
