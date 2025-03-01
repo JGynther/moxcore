@@ -60,6 +60,8 @@ class EType(Enum):
     EXILE = "exile"
     TOKENS = "tokens"
     COUNTERS = "counters"
+    PUT_LAND = "put_land"
+    PUT_CREATURE = "put_creature"
 
     # Resources
     DRAW = "draw"
