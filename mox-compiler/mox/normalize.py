@@ -15,6 +15,7 @@ def normalize(input: str):
     input = input.replace("this land", "[[card]]")
 
     input = input.replace("this card", "[[card]]")
+    input = input.replace("this token", "[[card]]")
 
     return input
 
