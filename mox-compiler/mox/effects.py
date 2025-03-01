@@ -98,7 +98,7 @@ def parse_effect(effect: str) -> Effect | None:
 def parse_effects(input: str) -> list[Effect]:
     effects = []
 
-    for effect in input.split("."):
+    for effect in re.split(r"\.(?=\s|$)", input):
         if not effect:
             continue
 
