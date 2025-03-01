@@ -1,21 +1,15 @@
 import re
 
+FLAVOR = r"^[^—]*—\s"
+REMINDER = r"\([^)]+\)"
+combined = re.compile(rf"{FLAVOR}|{REMINDER}")
+this = re.compile(r"\b(this (?:spell|creature|aura|enchantment|artifact|land|card|token))\b")
+
 
 def normalize(input: str):
     input = input.lower()
-    input = re.compile(r".*\s?—\s").sub("", input)
-    input = re.compile(r"\([^)]+\)").sub("", input)
-
-    # Special cases
-    input = input.replace("this spell", "[[card]]")
-    input = input.replace("this creature", "[[card]]")
-    input = input.replace("this aura", "[[card]]")
-    input = input.replace("this enchantment", "[[card]]")
-    input = input.replace("this artifact", "[[card]]")
-    input = input.replace("this land", "[[card]]")
-
-    input = input.replace("this card", "[[card]]")
-    input = input.replace("this token", "[[card]]")
+    input = combined.sub("", input)
+    input = this.sub("[[card]]", input)
 
     return input
 

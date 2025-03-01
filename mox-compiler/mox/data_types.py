@@ -113,4 +113,4 @@ class Card(T.NamedTuple):
     name: str
     type: CardType
     abilities: list[Ability] = []
-    keywords: list[str] = []
+    keywords: set[str] = set()

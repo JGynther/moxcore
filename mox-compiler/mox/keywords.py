@@ -99,4 +99,16 @@ keywords = [
 ]
 # fmt: on
 
-KEYWORDS = re.compile(r"\b|".join((r"\b" + k) for k in keywords), re.IGNORECASE)
+KW_SET = {k.lower() for k in keywords}
+WORDS = re.compile(r"\w+")
+
+
+def extract_keywords(input: str):
+    return KW_SET.intersection(WORDS.findall(input))
+
+
+def is_only_keywords(input: str, keywords: set[str]):
+    for kw in keywords.union({",", ".", ";"}):
+        input = input.replace(kw, "")
+
+    return not bool(input.strip())
