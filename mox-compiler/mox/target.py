@@ -3,7 +3,7 @@ import re
 
 def try_to_figure_out_target(effect: str) -> tuple[str | None, str]:
     # Special cases
-    for case in ["any target", "each opponent", "target player"]:
+    for case in ["any target", "each opponent", "target player", "targets"]:
         if case in effect:
             return case, effect.replace(case, "[[target]]")
 
