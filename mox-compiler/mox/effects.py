@@ -71,6 +71,10 @@ def try_to_parse_effect_type(effect: str) -> tuple[EType, Zone, Zone]:
             if "put a land" in effect:
                 etype = EType.PUT_LAND
 
+        case _ if "graveyard to the battlefield" in effect:
+            source = Zone.GRAVEYARD
+            etype = EType.REANIMATE
+
     return etype, source, destination
 
 

@@ -62,6 +62,7 @@ class EType(Enum):
     COUNTERS = "counters"
     PUT_LAND = "put_land"
     PUT_CREATURE = "put_creature"
+    REANIMATE = "reanimate"
 
     # Resources
     DRAW = "draw"
