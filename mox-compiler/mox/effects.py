@@ -1,6 +1,7 @@
 import re
 import typing as T
 
+from mox.conditions import split_condition_from_effect
 from mox.data_types import Effect, EType, Zone
 from mox.target import try_to_figure_out_target
 
@@ -68,11 +69,7 @@ def parse_effect(effect: str) -> Effect | None:
     if not (effect := effect.strip()):
         return
 
-    condition = None
-
-    if effect.startswith("if"):
-        condition, effect = effect.split(",", 1)
-
+    condition, effect = split_condition_from_effect(effect)
     etype, source, destination = try_to_parse_effect_type(effect)
     target, effect = try_to_figure_out_target(effect)
 
