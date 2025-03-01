@@ -75,6 +75,10 @@ def try_to_parse_effect_type(effect: str) -> tuple[EType, Zone, Zone]:
             source = Zone.GRAVEYARD
             etype = EType.REANIMATE
 
+        case _ if "to its owner's hand" in effect or "to their owners' hands" in effect:
+            destination = Zone.HAND
+            etype = EType.BOUNCE
+
     return etype, source, destination
 
 
