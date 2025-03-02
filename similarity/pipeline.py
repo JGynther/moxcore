@@ -1,4 +1,5 @@
-from cards.process_dump import process_scryfall_dump, write_cards_json
+from cards.cache import get_scryfall_data_from_cache
+from cards.process_dump import write_cards_json
 from cards.utils import normalize_oracle_text
 from search.bm25 import batch_bm25_search
 from search.embed import create_card_partial_jsons, create_embeddings
@@ -7,7 +8,7 @@ from search.rerank import batch_rerank
 NULL = "<|NULL|>"
 TOP_K = 10
 
-cards = process_scryfall_dump()
+cards = get_scryfall_data_from_cache()
 corpus = [normalize_oracle_text(card) or NULL for card in cards]
 
 results = batch_bm25_search(corpus)
