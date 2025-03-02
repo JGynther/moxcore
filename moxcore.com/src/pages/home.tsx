@@ -17,7 +17,7 @@ const Home = () => {
                         <br /> Magic: The Gathering
                     </h1>
                     <p>
-                        Mirror Mox is currently indexing
+                        Moxcore is currently indexing
                         <mark>
                             <b> {indexedCards} </b>
                         </mark>
@@ -27,7 +27,7 @@ const Home = () => {
                     </p>
                     <Search />
                     <div className="Buttons">
-                        <GradientButton href={randomUri}>About Mirror Mox</GradientButton>
+                        <GradientButton href={randomUri}>About Moxcore</GradientButton>
                         <GradientButton href={randomUri}>How does it work?</GradientButton>
                         <GradientButton href={randomUri}>Random Card</GradientButton>
                     </div>

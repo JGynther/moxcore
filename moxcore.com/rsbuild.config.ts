@@ -5,7 +5,7 @@ import { pluginBabel } from "@rsbuild/plugin-babel";
 
 export default defineConfig({
     html: {
-        title: "Mirror Mox",
+        title: "Moxcore",
     },
     plugins: [
         pluginReact(),
