@@ -54,8 +54,6 @@ def refresh_cache_if_needed():
     DATA.write_bytes(pickle.dumps(processed))
     write_metadata(file_name)
 
-    return True
-
 
 # https://scryfall.com/docs/api/bulk-data
 def download_scryfall_dump() -> str:
