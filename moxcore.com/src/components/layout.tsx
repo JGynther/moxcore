@@ -1,9 +1,16 @@
 import { Link } from "react-router-dom";
 import version from "../version.json";
+import { useSearchParams } from "react-router-dom";
 
 import Search from "@components/search";
+import { GradientButton } from "@components/common";
+import { useRandomCard } from "@lib/commonHooks";
 
 const Header = ({ hasSearch = true }) => {
+    const [searchParams, _] = useSearchParams();
+    const random = searchParams.get("random");
+    const randomUri = useRandomCard();
+
     return (
         <header className="Header">
             <div>
@@ -13,6 +20,7 @@ const Header = ({ hasSearch = true }) => {
                 <div className="badge">Alpha</div>
             </div>
             {hasSearch && <Search />}
+            {random && <GradientButton href={randomUri}>Random Card</GradientButton>}
         </header>
     );
 };
