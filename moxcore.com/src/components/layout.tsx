@@ -42,7 +42,7 @@ const Footer = () => {
             <p>Code is open source and available under a MIT / Apache 2.0 dual license.</p>
             <br />
             <p>
-                Version: <i>{version.rev}</i>
+                App version: <i>{version.rev}</i>
             </p>
         </footer>
     );
