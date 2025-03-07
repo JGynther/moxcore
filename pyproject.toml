@@ -5,10 +5,10 @@ requires-python = ">=3.12"
 dependencies = []
 
 [tool.uv.workspace]
-members = ["similarity", "mox-compiler"]
+members = ["similarity", "moxc"]
 
 [tool.uv.sources]
-mox-compiler = { workspace = true }
+moxc = { workspace = true }
 
 [tool.ruff]
 line-length = 100
