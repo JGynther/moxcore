@@ -15,7 +15,7 @@ const Suggestions = ({ cards, reset }: SuggestionsProps) => {
     const top10 = cards.slice(0, 10);
 
     return (
-        <div className="Autocomplete">
+        <div className="autocomplete">
             {top10.map((item) => (
                 <Link to={`/cards/${item.slug}`} key={item.slug} onClick={() => reset()}>
                     {item.name} <MTGText>{item.mana_cost}</MTGText> — {item.type_line}
@@ -38,7 +38,7 @@ const Search = () => {
         const exact = data.search.filter((card) => card.name.toLowerCase() === normalized);
         const prefix = data.search.filter((card) => card.name.toLowerCase().startsWith(normalized));
         const substring = data.search.filter((card) =>
-            card.name.toLowerCase().includes(normalized)
+            card.name.toLowerCase().includes(normalized),
         );
 
         const matches = [...exact, ...prefix, ...substring];
@@ -52,9 +52,10 @@ const Search = () => {
     const ref = useOnClickOutside<HTMLFormElement>(() => reset());
 
     return (
-        <form ref={ref} onSubmit={(event) => event.preventDefault()} className="Search">
+        <form ref={ref} onSubmit={(event) => event.preventDefault()} className="search">
             <input
                 type="text"
+                className={suggestions.length > 0 ? "active" : ""}
                 placeholder='Search e.g. "Black Lotus" or "Chrome Mox"'
                 onFocus={(event) => autoComplete(event.target.value)}
                 onChange={(event) => autoComplete(event.target.value)}
