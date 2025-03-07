@@ -3,6 +3,8 @@ import re
 from mox.data_types import Ability, Category
 from mox.effects import parse_effects
 
+trigger_pattern = re.compile(r"^(when|whenever|at)\b")
+
 
 def parse_ability(input: str, is_spell: bool) -> Ability:
     category: Category = Category.STATIC
@@ -10,7 +12,7 @@ def parse_ability(input: str, is_spell: bool) -> Ability:
     trigger: str | None = None
 
     match input:
-        case _ if re.match(r"^(when|whenever|at)\b", input):
+        case _ if trigger_pattern.search(input):
             category = Category.TRIGGERED
             trigger, input = input.split(",", 1)
 
