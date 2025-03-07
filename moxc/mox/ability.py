@@ -8,7 +8,7 @@ trigger_pattern = re.compile(r"^(when|whenever|at)\b")
 
 def parse_ability(input: str, is_spell: bool) -> Ability:
     category: Category = Category.STATIC
-    cost: str | None = None
+    cost = []
     trigger: str | None = None
 
     match input:
@@ -18,7 +18,8 @@ def parse_ability(input: str, is_spell: bool) -> Ability:
 
         case _ if is_activated_ability(input):
             category = Category.ACTIVATED
-            cost, input = input.split(":", 1)
+            cost_str, input = input.split(":", 1)
+            cost = [c.strip() for c in cost_str.split(",")]
 
         case _:
             if is_spell:

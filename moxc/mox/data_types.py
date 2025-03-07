@@ -105,7 +105,7 @@ class Category(Enum):
 class Ability(T.NamedTuple):
     category: Category
     effects: list[Effect] = []
-    cost: str | None = None
+    cost: list[str] = []
     trigger: str | None = None
 
 
