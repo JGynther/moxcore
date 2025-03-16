@@ -64,6 +64,7 @@ class EType(Enum):
     PUT_CREATURE = "put_creature"
     REANIMATE = "reanimate"
     BOUNCE = "bounce"
+    BLINK = "blink"
 
     # Resources
     DRAW = "draw"
@@ -74,10 +75,16 @@ class EType(Enum):
 
     # Combat
     DAMAGE = "damage"
+    LIFE_LOSS = "life_loss"
 
     # Change or block effects
     PREVENTION = "prevention"
     REPLACEMENT = "replacement"
+    MODIFY_STRENGTH = "modify_strength"
+
+    # Misc
+    VOTE = "vote"
+    KEYWORD = "keyword"  # keyword followed by cost e.g. "emerge {6}{u}"
 
     # Fallback
     UNKNOWN = "unknown"

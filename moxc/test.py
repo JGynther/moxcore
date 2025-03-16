@@ -92,6 +92,16 @@ TEST_CARDS = [
         "type": "Creature",
         "oracle": "Whenever this creature or another creature dies, target player loses 1 life and you gain 1 life.",
     },
+    {
+        "name": "Zimone, Mystery Unraveler",
+        "type": "Creature",
+        "oracle": "Landfall — Whenever a land you control enters, manifest dread if this is the first time this ability has resolved this turn. Otherwise, you may turn a permanent you control face up. (To manifest dread, look at the top two cards of your library. Put one onto the battlefield face down as a 2/2 creature and the other into your graveyard. Turn it face up any time for its mana cost if it’s a creature card.)",
+    },
+    {
+        "name": "Molten Disaster",
+        "type": "Sorcery",
+        "oracle": "Kicker {R} (You may pay an additional {R} as you cast this spell.)\nIf this spell was kicked, it has split second. (As long as this spell is on the stack, players can’t cast spells or activate abilities that aren’t mana abilities.)\nMolten Disaster deals X damage to each creature without flying and each player.",
+    },
     # {"name": "", "type": "", "oracle": ""},
 ]
 

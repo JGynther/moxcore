@@ -26,6 +26,9 @@ def try_to_parse_effect_type(effect: str) -> tuple[EType, Zone, Zone]:
         case _ if re.search(r"gain.+life", effect):
             etype = EType.LIFE_GAIN
 
+        case _ if re.search(r"loses?.+life", effect):
+            etype = EType.LIFE_LOSS
+
         # Token creation
         case _ if effect.startswith("create") or "token" in effect:
             etype = EType.TOKENS
@@ -71,13 +74,31 @@ def try_to_parse_effect_type(effect: str) -> tuple[EType, Zone, Zone]:
                 source = Zone.HAND
                 etype = EType.PUT_LAND
 
-        case _ if "graveyard to the battlefield" in effect:
+        case _ if re.search(r"graveyard.+to the battlefield", effect):
             source = Zone.GRAVEYARD
             etype = EType.REANIMATE
 
         case _ if "to its owner's hand" in effect or "to their owners' hands" in effect:
             destination = Zone.HAND
             etype = EType.BOUNCE
+
+        case _ if re.search(r"return.+ to the battlefield", effect):
+            etype = EType.BLINK
+            source = Zone.EXILE
+
+        case _ if re.search(r"\bvote\b", effect):
+            etype = EType.VOTE
+
+        case _ if re.search(r"gets? [+-]\d/[+-]\d", effect):
+            etype = EType.MODIFY_STRENGTH
+
+        case _ if re.search(r"\bsearch\b", effect):
+            etype = EType.TUTOR
+
+        # Keyword followed by cost e.g. "emerge {6}{u}"
+        # Needs to be checked after mana abilities
+        case _ if re.search(r"^.+({.+})+$", effect):
+            etype = EType.KEYWORD
 
     return etype, source, destination
 
