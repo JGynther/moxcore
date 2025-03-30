@@ -1,6 +1,12 @@
 import re
+from datetime import datetime
 
 from cards.card import CardFace
+
+
+def is_date_in_future(date_str: str) -> bool:
+    parsed = datetime.strptime(date_str, "%Y-%m-%d").date()
+    return parsed > datetime.now().date()
 
 
 def should_skip_card(card: dict) -> bool:
@@ -8,6 +14,10 @@ def should_skip_card(card: dict) -> bool:
         # Remove Alchemy only cards
         case {"games": ["arena"]}:
             return True
+
+        # Capture cards not yet released
+        case {"released_at": date} if is_date_in_future(date):
+            return False
 
         # Remove un(official) cards
         case {"legalities": {"vintage": "not_legal"}}:
