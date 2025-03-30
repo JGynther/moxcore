@@ -3,7 +3,7 @@ from functools import wraps
 from typing import Callable
 
 
-def timer(f: Callable) -> Callable:
+def timer[R](f: Callable[..., R]) -> Callable[..., R]:
     @wraps(f)
     def wrapper(*args, **kwargs):
         start = time.perf_counter()
