@@ -1,5 +1,4 @@
 import typing as T
-from dataclasses import dataclass
 from enum import Enum
 
 
@@ -26,30 +25,6 @@ class Zone(Enum):
 
     # Used when a zone is not relevant
     NULL = "null"
-
-
-class Player(Enum):
-    YOU = "you"
-    OPPONENT = "opponent"
-    ANY = "any"
-    ALL = "all"
-
-
-@dataclass
-class Cost:
-    W: int = 0
-    U: int = 0
-    B: int = 0
-    R: int = 0
-    G: int = 0
-    C: int = 0
-
-    tap: bool = False
-    untap: bool = False
-    sacrifice: str = ""
-
-
-type Target = Player | CardType
 
 
 class EType(Enum):
@@ -93,13 +68,13 @@ class EType(Enum):
 class Effect(T.NamedTuple):
     type: EType
     text: str
-    target: str | None = None
-    source: Zone | None = None
-    destination: Zone | None = None
-    condition: str | None = None
+    target: str | None
+    source: Zone
+    destination: Zone
+    condition: str | None
 
     # Escape hatch
-    parameters: dict[str, T.Any] = {}
+    parameters: dict[str, T.Any]
 
 
 class Category(Enum):
@@ -111,13 +86,13 @@ class Category(Enum):
 
 class Ability(T.NamedTuple):
     category: Category
-    effects: list[Effect] = []
-    cost: list[str] = []
-    trigger: str | None = None
+    effects: list[Effect]
+    cost: list[str]
+    trigger: str | None
 
 
 class Card(T.NamedTuple):
     name: str
     type: CardType
-    abilities: list[Ability] = []
-    keywords: set[str] = set()
+    abilities: list[Ability]
+    keywords: set[str]
