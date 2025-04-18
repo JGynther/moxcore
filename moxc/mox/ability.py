@@ -1,5 +1,6 @@
 import re
 
+from mox.cost import mana_cost_to_weighted_float
 from mox.data_types import Ability, Category
 from mox.effects import parse_effects
 
@@ -8,7 +9,7 @@ trigger_pattern = re.compile(r"^(when|whenever|at)\b")
 
 def parse_ability(input: str, is_spell: bool) -> Ability:
     category: Category = Category.STATIC
-    cost = []
+    cost = 0
     trigger: str | None = None
 
     match input:
@@ -19,7 +20,7 @@ def parse_ability(input: str, is_spell: bool) -> Ability:
         case _ if is_activated_ability(input):
             category = Category.ACTIVATED
             cost_str, input = input.split(":", 1)
-            cost = [c.strip() for c in cost_str.split(",")]
+            cost = mana_cost_to_weighted_float(cost_str)
 
         case _:
             if is_spell:
