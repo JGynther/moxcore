@@ -34,7 +34,7 @@ const Similar = ({ id }: ID) => {
     const slug = createCardSlug(card);
 
     type Options = keyof Card["neighbours"];
-    const [selected, setSelected] = useState<Options>("hybrid");
+    const [selected, setSelected] = useState<Options>("moxc");
 
     return (
         <>
@@ -48,8 +48,11 @@ const Similar = ({ id }: ID) => {
                     value={selected}
                     onChange={(event) => setSelected(event.target.value as Options)}
                 >
-                    <option value="bm25">BM25</option>
-                    <option value="hybrid">Hybrid</option>
+                    {Object.keys(card.neighbours).map((option) => (
+                        <option key={option} value={option}>
+                            {option}
+                        </option>
+                    ))}
                 </select>
                 <abbr title="You can choose between two different similarity metrics.">
                     What is this?

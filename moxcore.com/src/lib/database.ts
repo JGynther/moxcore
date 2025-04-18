@@ -17,7 +17,7 @@ type Card = {
 
     neighbours: {
         bm25: number[];
-        hybrid: number[];
+        moxc: number[];
     };
 };
 
