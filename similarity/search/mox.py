@@ -106,7 +106,7 @@ def score_all(cards: list[Card]):
 
     # Pyright does not understand faiss types
     index.add(vectors)  # type: ignore
-    distances, indices = index.search(vectors, k=100)  # type: ignore
+    distances, indices = index.search(vectors, k=25)  # type: ignore
 
     # Voting baskets via nested dictionaries
     # Essentially dict[card_id, dict[card_id, cosine_similarity]]
@@ -121,7 +121,17 @@ def score_all(cards: list[Card]):
 
         for j, cosine_sim in zip(index, distance):
             card = effect_to_card[j]
+
             if not card == card_id:
+                if cosine_sim >= 1:
+                    # Exact matches should be weighted more heavily
+                    cosine_sim = cosine_sim * 2
+
                 votes[card_id][card] += cosine_sim
 
-    return votes
+    _sorted = {
+        card_id: sorted(inner.keys(), key=lambda key: inner[key], reverse=True)
+        for card_id, inner in votes.items()
+    }
+
+    return _sorted

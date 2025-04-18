@@ -10,12 +10,11 @@ def main():
     yeet = compile_all_seq(cards)
     votes = score_all(yeet)
 
-    key = choice(list(votes.keys()))  # 9212 - black lotus
+    key = 9212  # choice(list(votes.keys()))  # 9212 - black lotus
     card = yeet[key]
     pretty_print(card)
 
-    yeetus = sorted(votes[key].items(), key=lambda x: x[1], reverse=True)[:10]
-    for card_id, score in yeetus:
+    for card_id in votes[key]:
         pretty_print(yeet[card_id])
 
 
