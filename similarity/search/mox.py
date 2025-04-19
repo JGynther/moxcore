@@ -15,9 +15,10 @@ from sentence_transformers import SentenceTransformer
 def create_embeddings(corpus: list[str], debug=False):
     MODEL = "all-MiniLM-L6-v2"
     model = SentenceTransformer(MODEL, device="mps")
+    model.bfloat16()
 
     # Trying to convert to Tensors here deadlocks (i.e. with convert_to_tensor=True)
-    return model.encode(corpus, normalize_embeddings=True, show_progress_bar=debug)
+    return model.encode(corpus, batch_size=512, normalize_embeddings=True, show_progress_bar=debug)
 
 
 @timer
