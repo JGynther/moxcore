@@ -6,7 +6,9 @@ combined = re.compile(rf"{FLAVOR}|{REMINDER}")
 this = re.compile(r"\b(this (?:spell|creature|aura|enchantment|artifact|land|card|token))\b")
 
 
-def normalize(input: str):
+def normalize(input: str, name: str):
+    input = mask_name(input, name)
+
     input = input.lower()
     input = combined.sub("", input)
     input = this.sub("[[card]]", input)

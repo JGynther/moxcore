@@ -1,12 +1,11 @@
 from mox.ability import parse_ability
 from mox.data_types import Card
 from mox.keywords import extract_keywords, is_only_keywords
-from mox.normalize import mask_name, normalize
+from mox.normalize import normalize
 
 
 def parse(input: str, name: str, type: str):
-    input = mask_name(input, name)
-    input = normalize(input)
+    input = normalize(input, name)
     is_spell = "Instant" in type or "Sorcery" in type
 
     abilities = []
