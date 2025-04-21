@@ -1,0 +1,20 @@
+@use "base";
+
+.mox-diagnostic {
+    summary {
+        cursor: pointer;
+    }
+
+    margin: 1rem;
+
+    @include base.padding-x(1rem);
+    @include base.padding-y(0.5rem);
+
+    background-color: base.$dark-0;
+    @include base.border;
+    border-radius: 0.5rem;
+
+    pre {
+        max-width: 30rem;
+    }
+}

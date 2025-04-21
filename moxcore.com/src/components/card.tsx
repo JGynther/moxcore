@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import { MTGOracleText, MTGText } from "@components/mtg";
 import { Similar } from "@components/similar";
+import { MoxDiagnostic } from "@components/mox";
 import {
     constructImageUri,
     constructScryfallUri,
@@ -136,6 +137,7 @@ const CardComponent = ({ id, compareTo, swap }: CardProps) => {
                     <CardText id={displayedCard} />
                     <LegalityTable id={displayedCard} />
                 </div>
+                <MoxDiagnostic id={displayedCard} />
                 <Similar id={id} />
             </div>
         </div>

@@ -19,6 +19,10 @@ type Card = {
         bm25: number[];
         moxc: number[];
     };
+
+    meta: {
+        moxc_diagnostic: string;
+    };
 };
 
 type Cards = {
