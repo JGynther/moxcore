@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 
 import { MTGText } from "@components/mtg";
 import { Card, createCardSlug, useDatabase } from "@lib/database";
@@ -17,8 +17,10 @@ const CardPreview = ({ id, parent }: PreviewProps) => {
     const card = data.cards[id];
     const slug = createCardSlug(card);
 
+    const { search } = useLocation();
+
     return (
-        <NavLink to={`/cards/${parent}/${slug}`}>
+        <NavLink to={`/cards/${parent}/${slug}${search}`}>
             <div>{card.name}</div>
             <div>
                 <MTGText>{card.mana_cost}</MTGText>
