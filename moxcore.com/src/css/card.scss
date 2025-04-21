@@ -119,6 +119,9 @@
 }
 
 .stacked-card-images-test {
+    position: sticky;
+    top: 1rem;
+
     display: grid;
 
     > div {
