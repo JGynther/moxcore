@@ -1,6 +1,6 @@
 from dataclasses import asdict, dataclass, fields
 from functools import wraps
-from typing import Optional
+from typing import Any, Optional
 
 
 def dataclass_ignore_unknown_params(cls: type) -> type:
@@ -82,6 +82,8 @@ class VirtualCard:
     toughness: Optional[str] = None
 
     neighbours: Optional[dict[str, list[int]]] = None
+
+    meta: Optional[dict[str, Any]] = None
 
     @classmethod
     def from_card(cls, id: int, card: Card, face: CardFace):
