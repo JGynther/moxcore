@@ -39,7 +39,10 @@ const Footer = () => {
             </p>
             <p>Everything else © {copyright} Joona Gynther.</p>
             <hr />
-            <p>Code is open source and available under a MIT / Apache 2.0 dual license.</p>
+            <p>
+                Moxcore is open source and available under a MIT / Apache 2.0 dual license.{" "}
+                <a href="https://github.com/JGynther/moxcore">github.com/JGynther/moxcore</a>
+            </p>
             <br />
             <p>
                 App version: <i>{version.rev}</i>
