@@ -90,7 +90,7 @@ def stack_embeddings(embeddings: torch.Tensor) -> torch.Tensor:
 @timer
 @torch.no_grad()
 def create_vectors(effects: torch.Tensor, text_sim: torch.Tensor):
-    test = torch.cat([effects * 0.5, text_sim * 0.5], dim=1)
+    test = torch.cat([effects * 0.3, text_sim * 0.7], dim=1)
     test = F.normalize(test, dim=1)
     return test.cpu().numpy()
 
@@ -131,7 +131,7 @@ def score_all(cards: list[Card]):
                 votes[card_id][card] += cosine_sim
 
     _sorted = {
-        card_id: sorted(inner.keys(), key=lambda key: inner[key], reverse=True)
+        card_id: sorted(inner.items(), key=lambda x: x[1], reverse=True)
         for card_id, inner in votes.items()
     }
 

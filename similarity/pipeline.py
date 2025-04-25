@@ -18,7 +18,7 @@ scores = score_all(compiled)
 
 for index, card in enumerate(cards):
     card.neighbours = {}
-    card.neighbours["bm25"] = results[index].tolist()[:TOP_K]
+    card.neighbours["bm25"] = results[index][:TOP_K]
 
     # Some moxc cards don't have effects, and don't get included
     card.neighbours["moxc"] = scores.get(index, [])[:TOP_K]

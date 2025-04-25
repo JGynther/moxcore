@@ -81,7 +81,7 @@ class VirtualCard:
     power: Optional[str] = None
     toughness: Optional[str] = None
 
-    neighbours: Optional[dict[str, list[int]]] = None
+    neighbours: Optional[dict[str, list[tuple[int, float]]]] = None
 
     meta: Optional[dict[str, Any]] = None
 
