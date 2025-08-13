@@ -53,7 +53,7 @@ fn make_client() -> reqwest::blocking::Client {
         .unwrap()
 }
 
-pub fn refresh_cards_cache(path: &std::path::PathBuf) -> Result<()> {
+fn refresh_cards_cache(path: &std::path::PathBuf) -> Result<()> {
     let client = make_client();
 
     let response: BulkDataResponse = client
@@ -65,7 +65,7 @@ pub fn refresh_cards_cache(path: &std::path::PathBuf) -> Result<()> {
     let uri = response
         .data
         .into_iter()
-        .find(|entry| entry._type == "default_cards")
+        .find(|entry| entry._type == "oracle_cards")
         .map(|entry| entry.download_uri)
         .unwrap();
 

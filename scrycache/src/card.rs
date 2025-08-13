@@ -1,6 +1,6 @@
 use serde::Deserialize;
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, PartialEq, Clone, Copy)]
 #[serde(rename_all = "UPPERCASE")]
 pub enum Color {
     W,
@@ -87,6 +87,7 @@ pub struct ScryfallCardFace {
 
 #[derive(Debug, Deserialize)]
 pub struct ScryfallCardObject {
+    pub id: String,
     pub card_faces: Option<Vec<ScryfallCardFace>>,
     pub cmc: Option<f32>,
     pub colors: Option<Vec<Color>>,

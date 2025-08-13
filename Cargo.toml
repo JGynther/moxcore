@@ -1,3 +1,3 @@
 [workspace]
 resolver = "3"
-members = ["moxzf", "scrycache", "tags-dsl"]
+members = ["moxzf", "scrycache"]
