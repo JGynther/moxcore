@@ -1,4 +1,4 @@
-use moxzf::{ENGINE, Rule, load_cards, rule};
+use moxzf::{dbg_eval_rule, load_cards, oracle_regex, rule};
 
 // Just testing
 fn main() {
@@ -42,11 +42,27 @@ fn main() {
         rule: |card| !card.is_B()
     );
 
+    rule!(
+        name: "card-draw",
+        desc: "Card draw",
+        depends_on: [],
+        rule: |card| oracle_regex!(card, r"draws?.+cards?")
+    );
+
     let rand_card = cards.get(3675).unwrap();
     dbg!(rand_card);
 
-    dbg!(ENGINE.eval(rand_card, "legendary-blue-creature"));
-    dbg!(ENGINE.eval(rand_card, "trigger-whenever"));
-    dbg!(ENGINE.eval(rand_card, "search"));
-    dbg!(ENGINE.eval(rand_card, "dies-to-doomblade"));
+    dbg!(dbg_eval_rule!(rand_card, "legendary-blue-creature"));
+    dbg!(dbg_eval_rule!(rand_card, "trigger-whenever"));
+    dbg!(dbg_eval_rule!(rand_card, "search"));
+    dbg!(dbg_eval_rule!(rand_card, "dies-to-doomblade"));
+    dbg!(dbg_eval_rule!(rand_card, "card-draw"));
+
+    dbg!(
+        cards
+            .iter()
+            .filter(|card| dbg_eval_rule!(card, "legendary-blue-creature"))
+            .collect::<Vec<_>>()
+            .len()
+    );
 }

@@ -28,7 +28,12 @@ impl RulesEngine {
     }
 
     pub fn eval(&self, card: &Card, rule: &str) -> bool {
-        self.rules.read().unwrap().get(rule).unwrap().eval(card)
+        self.rules
+            .read()
+            .unwrap()
+            .get(rule)
+            .expect("Non-existent rule")
+            .eval(card)
     }
 }
 
@@ -42,8 +47,8 @@ macro_rules! rule {
         depends_on: [$($dep:literal),*],
         rule: |$card:ident| $body:expr
     ) => {
-        ENGINE.add_rule($name,
-            Rule {
+        ::moxzf::ENGINE.add_rule($name,
+            ::moxzf::Rule {
                 name: $name,
                 desc: $desc,
                 deps: vec![$($dep),*],
@@ -70,4 +75,12 @@ impl Rule {
     fn eval(&self, card: &Card) -> bool {
         self.deps.iter().all(|rule| ENGINE.eval(card, rule)) && (self.eval)(card)
     }
+}
+
+#[macro_export]
+#[cfg(debug_assertions)]
+macro_rules! dbg_eval_rule {
+    ($card:ident, $rule:literal) => {
+        ::moxzf::ENGINE.eval($card, $rule)
+    };
 }

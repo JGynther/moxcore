@@ -71,4 +71,18 @@ impl Card {
     pub fn oracle(&self, text: &str) -> bool {
         self.oracle_text.contains(text)
     }
+
+    // Generic accessor
+    pub fn oracle_text(&self) -> &str {
+        &self.oracle_text
+    }
+}
+
+#[macro_export]
+macro_rules! oracle_regex {
+    ($card:expr, $pattern:literal) => {{
+        static RE: ::std::sync::LazyLock<::regex::Regex> =
+            ::std::sync::LazyLock::new(|| ::regex::Regex::new($pattern).unwrap());
+        RE.is_match($card.oracle_text())
+    }};
 }
