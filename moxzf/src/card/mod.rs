@@ -76,6 +76,10 @@ impl Card {
     pub fn oracle_text(&self) -> &str {
         &self.oracle_text
     }
+
+    pub fn name(&self) -> &str {
+        &self.name
+    }
 }
 
 #[macro_export]
